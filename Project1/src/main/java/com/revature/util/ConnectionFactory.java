@@ -9,7 +9,7 @@ import org.postgresql.ds.PGPoolingDataSource;
 public class ConnectionFactory {
 	//Is going to control our connection to our database. 
 		// It will deal with all the configuration details, and simply return a Connection. 
-	public Connection dataBaseConnection(){	
+	public static Connection dataBaseConnection(){	
 		final String URL = System.getenv("Endpoint");
 		final String USERNAME = System.getenv("DBUsername");
 		final String PASSWORD = System.getenv("DBPassword");
