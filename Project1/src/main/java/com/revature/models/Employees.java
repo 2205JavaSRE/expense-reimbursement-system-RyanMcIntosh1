@@ -76,6 +76,12 @@ public class Employees {
 		this.password = password;
 		this.employee = employee;
 	}
+	public Employees(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+		
+	}
 	public Employees() {
 		super();
 		// TODO Auto-generated constructor stub

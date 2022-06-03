@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Employees;
@@ -52,6 +53,7 @@ public class ReimbursementRequestsDaoImpl implements ReimbursementRequestsDao {
 	@Override
 	public List<ReimbursementRequests> selectRequestsById(int input) {
 		// TODO Auto-generated method stub
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM reimbursement_requests WHERE id = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
@@ -59,18 +61,20 @@ public class ReimbursementRequestsDaoImpl implements ReimbursementRequestsDao {
 			ps.setInt(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"), rs.getInt("id"), rs.getFloat("amount"), rs.getString("Category"));
+				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return reimbursementRequestsList;
 	}
 
 	@Override
 	public List<ReimbursementRequests> selectRequestsByCategory(String input) {
 		// TODO Auto-generated method stub
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM reimbursement_requests WHERE category = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
@@ -78,21 +82,16 @@ public class ReimbursementRequestsDaoImpl implements ReimbursementRequestsDao {
 			ps.setString(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"), rs.getInt("id"), rs.getFloat("amount"), rs.getString("Category"));
+				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return reimbursementRequestsList;
 	}
 
-	@Override
-	public void deleteRequest(ReimbursementRequests r) {
-		// TODO Auto-generated method stub
-		//may not need
-		
-	}
 
 	@Override
 	public void approveRequest(int input, Employees financeManagerId) {

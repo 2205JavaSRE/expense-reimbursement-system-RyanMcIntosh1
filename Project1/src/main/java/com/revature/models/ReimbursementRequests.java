@@ -59,6 +59,17 @@ public class ReimbursementRequests {
 		this.amount = amount;
 		this.category = category;
 	}
+	public ReimbursementRequests(int id, float amount, String category) {
+		super();
+		this.id = id;
+		this.amount = amount;
+		this.category = category;
+	}
+	public ReimbursementRequests(float amount, String category) {
+		super();
+		this.amount = amount;
+		this.category = category;
+	}
 	public ReimbursementRequests() {
 		super();
 		// TODO Auto-generated constructor stub
