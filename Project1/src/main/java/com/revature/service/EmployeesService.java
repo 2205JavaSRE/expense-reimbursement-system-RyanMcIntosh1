@@ -23,7 +23,7 @@ public class EmployeesService {
 	}
 	public List<ReimbursementRequests> insertTransaction(Employees employee, String category, float amount) {
 		if(category.equals("LODGING") || category.equals("TRAVEL") || category.equals("FOOD") || category.equals("OTHER")) {
-			return true;
+			return null;
 		}
 		return null;
 	}

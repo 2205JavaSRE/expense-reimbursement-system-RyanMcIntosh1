@@ -34,34 +34,6 @@ public class EmployeesController {
 		
 	}
 	
-	public void authenticateByFormParam(Context ctx) {
-		
-		String username = ctx.formParam("username");
-		String password = ctx.formParam("password");
-		
-		Employees u = new Employees(ctx.formParam("username"),ctx.formParam("password"));
-		
-		boolean access = false;
-		try {
-			access = employeesService.login(username, password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(access) {
-			ctx.result("You have access");
-			ctx.status(HttpStatus.ACCEPTED_202);
-			
-			ctx.sessionAttribute("user", u);
-			ctx.sessionAttribute("role","super user");
-		}else {
-			ctx.result("You don't have access!");
-			ctx.status(HttpCode.FORBIDDEN);
-			ctx.sessionAttribute("role", "hacker");
-		}
-		
-	}
 	public void getTransactionByCategory(Context ctx) {
 		String category = ctx.pathParam("category");
 		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
@@ -78,11 +50,13 @@ public class EmployeesController {
 			//if true they are a manager
 			ctx.result("You are a Manager!");
 			ctx.cookieStore("access", true);
+			ctx.cookieStore("userinfo", employee);
 			ctx.cookieStore("employee", false);
 			ctx.cookieStore("manager", true);
 		}else {
 			ctx.result("You are a Employee!");
 			ctx.cookieStore("access", true);
+			ctx.cookieStore("userinfo", employee);
 			ctx.cookieStore("employee", true);
 			ctx.cookieStore("manager", false);
 		}
