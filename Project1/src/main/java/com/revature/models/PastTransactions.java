@@ -5,7 +5,6 @@ import java.util.Objects;
 public class PastTransactions {
 	private int ticketId;
 	private boolean approved;
-	private int approverId;
 	public int getTicketId() {
 		return ticketId;
 	}
@@ -18,15 +17,10 @@ public class PastTransactions {
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
-	public int getApproverId() {
-		return approverId;
-	}
-	public void setApproverId(int approverId) {
-		this.approverId = approverId;
-	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(approved, approverId, ticketId);
+		return Objects.hash(approved,ticketId);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -37,17 +31,17 @@ public class PastTransactions {
 		if (getClass() != obj.getClass())
 			return false;
 		PastTransactions other = (PastTransactions) obj;
-		return approved == other.approved && approverId == other.approverId && ticketId == other.ticketId;
+		return approved == other.approved && ticketId == other.ticketId;
 	}
 	@Override
 	public String toString() {
-		return "PastTransactions [ticketId=" + ticketId + ", approved=" + approved + ", approverId=" + approverId + "]";
+		return "PastTransactions [ticketId=" + ticketId + ", approved=" + approved  + "]";
 	}
-	public PastTransactions(int ticketId, boolean approved, int approverId) {
+
+	public PastTransactions(int ticketId, boolean approved) {
 		super();
 		this.ticketId = ticketId;
 		this.approved = approved;
-		this.approverId = approverId;
 	}
 	public PastTransactions() {
 		super();

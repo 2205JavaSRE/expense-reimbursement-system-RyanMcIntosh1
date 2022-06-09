@@ -32,15 +32,15 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public PastTransactions selectTransactionByTicketId(int input) {
+	public ReimbursementRequests selectTransactionByTicketId(int input) {
 		try {
-			String sql = "SELECT * FROM past_transactions WHERE ticket_id = ?";
+			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE ticket_id = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, input );
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				return transaction;
 			}
 		} catch (SQLException e) {
@@ -51,9 +51,9 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsById(int input) {
+	public List<ReimbursementRequests> selectTransactionsById(int input) {
 		// TODO Auto-generated method stub
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE id = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
@@ -61,7 +61,7 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 			ps.setInt(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 			
@@ -73,9 +73,9 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsByApprover(int input) {
+	public List<ReimbursementRequests> selectTransactionsByApprover(int input) {
 		// TODO Auto-generated method stub
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM past_transactions WHERE approver_id = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
@@ -83,7 +83,7 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 			ps.setInt(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
@@ -94,9 +94,9 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsByEmployee(int input) {
+	public List<ReimbursementRequests> selectTransactionsByEmployee(int input) {
 		// Do this by Employee ID
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
 			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE id = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
@@ -104,7 +104,7 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 			ps.setInt(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
@@ -115,16 +115,16 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsByApproved() {
+	public List<ReimbursementRequests> selectTransactionsByApproved() {
 		// TODO Auto-generated method stub
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM past_transactions WHERE approved = true";
+			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE approved = true";
 			Connection connection = ConnectionFactory.dataBaseConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
@@ -135,16 +135,16 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsByDeclined() {
+	public List<ReimbursementRequests> selectTransactionsByDeclined() {
 		// TODO Auto-generated method stub
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM past_transactions WHERE approved = false";
+			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE approved = false";
 			Connection connection = ConnectionFactory.dataBaseConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
@@ -155,17 +155,17 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 	}
 
 	@Override
-	public List<PastTransactions> selectTransactionsByCategory(String input) {
+	public List<ReimbursementRequests> selectTransactionsByCategory(String input) {
 		// TODO Auto-generated method stub
-		List<PastTransactions> reimbursementRequestsList = new ArrayList<>();
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
 		try {
-			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE category = ?";;
+			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id WHERE category = ?";
 			Connection connection = ConnectionFactory.dataBaseConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, input);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				PastTransactions transaction = new PastTransactions(rs.getInt("ticket_id"),rs.getBoolean("approved"), rs.getInt("approverId"));
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
 				reimbursementRequestsList.add(transaction);
 			}
 		} catch (SQLException e) {
@@ -174,7 +174,24 @@ public class PastTransactionsDaoImpl implements PastTransactionsDao {
 		}
 		return reimbursementRequestsList;
 	}
-
+	public List<ReimbursementRequests> selectAllTransactions(){
+		List<ReimbursementRequests> reimbursementRequestsList = new ArrayList<>();
+		try {
+			String sql = "SELECT * FROM past_transactions INNER JOIN reimbursement_requests ON past_transactions.ticket_id = reimbursement_requests.ticket_id";
+			Connection connection = ConnectionFactory.dataBaseConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				ReimbursementRequests transaction = new ReimbursementRequests(rs.getInt("ticket_id"),rs.getInt("id"),rs.getFloat("amount"),rs.getString("category"),rs.getBoolean("approved"));
+				reimbursementRequestsList.add(transaction);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return reimbursementRequestsList;
+		
+	}
 
 
 }

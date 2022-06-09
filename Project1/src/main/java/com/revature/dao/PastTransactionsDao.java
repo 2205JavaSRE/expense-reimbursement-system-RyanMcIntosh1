@@ -9,11 +9,12 @@ import com.revature.models.ReimbursementRequests;
 public interface PastTransactionsDao {
 	//May not need InsertTransaction since I have one in the ReimbusementDao
 	public void insertTransaction(ReimbursementRequests r, boolean approve, Employees manager);
-	public PastTransactions selectTransactionByTicketId(int input);
-	public List<PastTransactions> selectTransactionsById(int input);
-	public List<PastTransactions> selectTransactionsByApprover(int input);
-	public List<PastTransactions> selectTransactionsByEmployee(int input);
-	public List<PastTransactions> selectTransactionsByApproved();
-	public List<PastTransactions> selectTransactionsByDeclined();
-	public List<PastTransactions> selectTransactionsByCategory(String input);
+	public List<ReimbursementRequests> selectAllTransactions();
+	public ReimbursementRequests selectTransactionByTicketId(int input);
+	public List<ReimbursementRequests> selectTransactionsById(int input);
+	public List<ReimbursementRequests> selectTransactionsByApprover(int input);
+	public List<ReimbursementRequests> selectTransactionsByEmployee(int input);
+	public List<ReimbursementRequests> selectTransactionsByApproved();
+	public List<ReimbursementRequests> selectTransactionsByDeclined();
+	public List<ReimbursementRequests> selectTransactionsByCategory(String input);
 }

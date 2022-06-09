@@ -2,11 +2,15 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import com.google.gson.Gson;
+
 public class ReimbursementRequests {
+	Gson gson = new Gson();
 	private int ticketId;
 	private int id;
 	private float amount;
 	private String category;
+	private boolean approval;
 	public int getTicketId() {
 		return ticketId;
 	}
@@ -52,26 +56,41 @@ public class ReimbursementRequests {
 		return "ReimbursementRequests [ticketId=" + ticketId + ", id=" + id + ", amount=" + amount + ", category="
 				+ category + "]";
 	}
+	
 	public ReimbursementRequests(int ticketId, int id, float amount, String category) {
-		super();
+		this(id, amount, category);
 		this.ticketId = ticketId;
 		this.id = id;
 		this.amount = amount;
 		this.category = category;
 	}
 	public ReimbursementRequests(int id, float amount, String category) {
-		super();
+		this(amount, category);
 		this.id = id;
 		this.amount = amount;
 		this.category = category;
 	}
 	public ReimbursementRequests(float amount, String category) {
-		super();
+		this();
 		this.amount = amount;
 		this.category = category;
 	}
 	public ReimbursementRequests() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public ReimbursementRequests(int ticketId, int id, float amount, String category, boolean approval) {
+		this(ticketId, id, amount, category);
+		this.ticketId = ticketId;
+		this.id = id;
+		this.amount = amount;
+		this.category = category;
+		this.approval  = approval;
+	}
+	public boolean isApproval() {
+		return approval;
+	}
+	public void setApproval(boolean approval) {
+		this.approval = approval;
 	}
 }
