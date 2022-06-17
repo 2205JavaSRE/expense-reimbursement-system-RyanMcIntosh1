@@ -109,7 +109,7 @@ public class ReimbursementRequestsDaoImpl implements ReimbursementRequestsDao {
 	public void approveRequest(int input) {
 		// TODO Auto-generated method stub
 		try {
-			String sql = "INSERT into past_transactions(id, approved) VALUES (?,true)";
+			String sql = "INSERT into past_transactions(ticket_id, approved) VALUES (?,true)";
 			Connection connection = ConnectionFactory.dataBaseConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, input);
