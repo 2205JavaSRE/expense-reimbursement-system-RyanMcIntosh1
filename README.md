@@ -2,7 +2,7 @@
 
 ## Description
 
-   Built an Expense Reimbursement API, using Javalin, that is deployed on a remote server and ochestrate the application(s) using Docker and Docker Compose. Application monitoring was utilized to check the state of the server and the application. 
+   Built an Expense Reimbursement API, using Javalin, that is deployed on a remote server and ochestrated the application using Docker and Docker Compose. Application monitoring was utilized to check the state of the server and the application. 
 
    ### Expense Reimbursement Application requirements:
 
